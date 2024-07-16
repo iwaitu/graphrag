@@ -64,6 +64,8 @@ class OpenAIChatLLM(BaseLLM[CompletionInput, CompletionOutput]):
     ) -> LLMOutput[CompletionOutput]:
         """Generate JSON output."""
         name = kwargs.get("name") or "unknown"
+        if "is_response_valid" in kwargs:
+            del kwargs["is_response_valid"]
         is_response_valid = kwargs.get("is_response_valid") or (lambda _x: True)
 
         async def generate(
